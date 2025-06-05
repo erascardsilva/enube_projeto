@@ -1,0 +1,10 @@
+### Importar arquivo XLS
+POST http://localhost:8080/importar-xls
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="Reconfile fornecedores.xlsx"
+Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+
+< /home/erasmo/GITHUB/enube_projeto/base/Reconfile fornecedores.xlsx
+--WebAppBoundary-- 
