@@ -45,8 +45,8 @@ cd enube_projeto
 ```
 
 2. Configure as variáveis de ambiente:
-   - Copie `.env.example` para `.env` na raiz do projeto
-   - Copie `.env.example` para `backend/.env`
+   - Na raiz `.env.example` para `.env` na raiz do projeto
+   - Na pasta Backend `.env.example` para `backend/.env`
    - Ajuste as variáveis conforme necessário
 
 3. Inicie os containers:
