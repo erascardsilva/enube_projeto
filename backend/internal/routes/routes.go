@@ -42,7 +42,12 @@ func SetupRouter(db *gorm.DB, jwtService *auth.JWTService) *gin.Engine {
 
 		// Rotas de Faturamento
 		api.GET("/billing", handlers.GetAllBillingHandler(db))
+
+		// Rotas de agrupamento
 		api.GET("/billing/summary/categories", handlers.GetBillingSummaryByCategoriesHandler(db))
+		api.GET("/billing/summary/resources", handlers.GetBillingSummaryByResources(db))
+		api.GET("/billing/summary/clients", handlers.GetBillingSummaryByClients(db))
+		api.GET("/billing/summary/months", handlers.GetBillingSummaryByMonths(db))
 	}
 
 	return router

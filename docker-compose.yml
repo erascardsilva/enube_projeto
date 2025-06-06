@@ -1,5 +1,5 @@
 # Erasmo Cardoso da Silva
-# Desenvolvedor Full Stack
+# Projeto de teste - Enube
 version: '3.8'
 
 services:
@@ -13,7 +13,6 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      # - postgres_data:/var/lib/postgresql/data # Removido para evitar persistência
       - ./backend/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - app-network
@@ -57,6 +56,3 @@ services:
 networks:
   app-network:
     driver: bridge
-
-# volumes:
-#   postgres_data: # Removido a definição do volume nomeado
