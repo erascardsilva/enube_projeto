@@ -1,0 +1,33 @@
+# Erasmo Cardoso da Silva
+# Desenvolvedor Full Stack
+
+# Arquivos de ambiente
+.env
+
+# Arquivos de build e binários
+/bin/
+/tmp/
+*.exe
+*.exe~
+*.test
+*.out
+
+# Arquivos de cobertura de testes
+coverage/
+coverage.out
+
+# Arquivos de IDE
+.idea/
+.vscode/
+
+# Arquivos de log
+*.log
+build-errors.log
+
+# Arquivos temporários do Air
+/backend/tmp/
+/backend/coverage/
+
+# Arquivos de debug
+debug
+debug.test

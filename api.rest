@@ -1,23 +1,65 @@
-### Teste no pc Importar arquivo XLS
+@baseUrl = http://localhost:8080
 
-POST http://localhost:8080/importar-xls
-Content-Type: multipart/form-data; boundary=WebAppBoundary
+### Registro de novo usuário (com senha criptografada) ok
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
 
---WebAppBoundary
+{
+    "username": "erasmo",
+    "email": "erascardsilva@gmail.com",
+    "password": "master3727"
+}
+
+### Login e obtenção do token JWT ok
+# @name login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+    "username": "erasmo",
+    "password": "master3727"
+}
+
+### Listar todos os usuários  ok
+GET {{baseUrl}}/api/users
+Authorization: Bearer {{login.response.body.token}}
+
+
+
+### Importar arquivo Excel ok  desempenho ruim quase 40 segundos se der tempo tentar otimizar  mais tarde
+ POST {{baseUrl}}/api/import
+Authorization: Bearer {{login.response.body.token}}
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary
+
+------WebKitFormBoundary
 Content-Disposition: form-data; name="file"; filename="Reconfile fornecedores.xlsx"
 Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
 
-< /home/erasmo/GITHUB/enube_projeto/base/Reconfile fornecedores.xlsx
---WebAppBoundary-- 
+< ./base/Reconfile fornecedores.xlsx
+------WebKitFormBoundary--
 
-### Teste no notebook Importar arquivo XLS
+### Listar todos os clientes ok
+GET {{baseUrl}}/api/clients
+Authorization: Bearer {{login.response.body.token}}
 
-POST http://localhost:8080/importar-xls
-Content-Type: multipart/form-data; boundary=WebAppBoundary
+### Listar todas as categorias ok
+GET {{baseUrl}}/api/categories
+Authorization: Bearer {{login.response.body.token}}
 
---WebAppBoundary
-Content-Disposition: form-data; name="file"; filename="Reconfile fornecedores.xlsx"
-Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+### Listar todos os recursos ok
+GET {{baseUrl}}/api/resources
+Authorization: Bearer {{login.response.body.token}}
 
-<  /mnt/85323068-cdcb-4c58-a5c6-7d2e51f42d54/GITHUB/enube_projeto/base/Reconfile fornecedores.xlsx
---WebAppBoundary-- 
+
+### Listar usuários com paginação ok
+GET {{baseUrl}}/api/users?page=1&limit=10
+Authorization: Bearer {{login.response.body.token}}
+
+### Listar todos os faturamentos ok
+GET {{baseUrl}}/api/billing
+Authorization: Bearer {{login.response.body.token}}
+
+### Resumo de faturamento por categoria ok
+GET {{baseUrl}}/api/billing/summary/categories
+Authorization: Bearer {{login.response.body.token}}
+

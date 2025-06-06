@@ -1,0 +1,55 @@
+# Version control
+.git
+.gitignore
+.gitattributes
+
+# Development files
+*.md
+!README.md
+.env
+.env.*
+*.log
+*.tmp
+*.temp
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Build artifacts
+node_modules/
+dist/
+build/
+bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+
+# Go specific
+vendor/
+go.sum
+go.work
+*.out
+
+# Frontend specific
+.next/
+.nuxt/
+.vuepress/dist
+.serverless/
+.fusebox/
+.dynamodb/
+.tern-port
+
+# Docker files
+Dockerfile*
+docker-compose*
+.docker/
+
+# Database files
+*.sqlite3
+*.db 

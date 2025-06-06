@@ -13,7 +13,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      # - postgres_data:/var/lib/postgresql/data # Removido para evitar persistência
       - ./backend/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - app-network
@@ -58,5 +58,5 @@ networks:
   app-network:
     driver: bridge
 
-volumes:
-  postgres_data:
+# volumes:
+#   postgres_data: # Removido a definição do volume nomeado

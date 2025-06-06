@@ -1,0 +1,79 @@
+# Erasmo Cardoso da Silva
+# Desenvolvedor Full Stack
+
+# Configuração do diretório raiz do projeto
+root = "."
+
+# Diretório para arquivos temporários
+tmp_dir = "tmp"
+
+[build]
+# Comando para compilar o projeto
+cmd = "go build -o ./tmp/main cmd/importer/main.go"
+
+# Caminho do binário compilado
+bin = "tmp/main"
+
+# Comando completo para executar a aplicação com variáveis de ambiente
+full_bin = "APP_ENV=dev APP_USER=air ./tmp/main"
+
+# Extensões de arquivos que o Air deve monitorar para mudanças
+include_ext = ["go", "tpl", "tmpl", "html"]
+
+# Diretórios que o Air deve ignorar
+exclude_dir = ["assets", "tmp", "vendor", "testdata"]
+
+# Diretórios que o Air deve monitorar (vazio = todos)
+include_dir = []
+
+# Arquivos específicos que o Air deve ignorar
+exclude_file = []
+
+# Tempo de espera em milissegundos antes de recompilar
+delay = 1000
+
+# Para a execução se houver erro na compilação
+stop_on_error = true
+
+# Arquivo de log para erros de build
+log = "build-errors.log"
+
+# Configuração para executar testes antes de cada build
+test_cmd = "go test ./... -v"
+
+# Configuração para executar testes de cobertura
+coverage_cmd = "go test ./... -coverprofile=coverage.out"
+
+[log]
+# Mostra timestamp nos logs
+time = true
+
+[color]
+# Cores para diferentes tipos de mensagens no terminal
+main = "magenta"
+watcher = "cyan"
+build = "yellow"
+runner = "green"
+test = "blue"
+coverage = "white"
+
+[misc]
+# Limpa arquivos temporários ao sair
+clean_on_exit = true
+
+[test]
+# Configurações específicas para testes
+# Executa testes em paralelo
+parallel = true
+
+# Timeout para testes (em segundos)
+timeout = "30s"
+
+# Mostra cobertura de código
+cover = true
+
+# Diretório para relatórios de cobertura
+cover_dir = "coverage"
+
+# Formato do relatório de cobertura (html, xml, etc)
+cover_format = "html" 

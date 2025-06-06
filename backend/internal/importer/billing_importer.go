@@ -1,3 +1,17 @@
+// Erasmo Cardoso da Silva
+// Desenvolvedor Full Stack
+//
+// TODO: Otimizar o processamento paralelo para melhor performance
+// TODO: Adicionar mais logs para debug
+// TODO: Implementar retry mechanism para falhas de banco
+// TODO: Melhorar tratamento de erros nas datas
+// TODO: Considerar usar batch processing para entidades relacionadas
+// TODO: Avaliar uso de prepared statements para melhor performance
+// TODO: Implementar validação mais robusta dos dados de entrada
+// TODO: Adicionar métricas de performance
+// TODO: Considerar usar transactions para garantir consistência
+// TODO: Implementar mecanismo de rollback em caso de falha
+
 package importer
 
 import (
@@ -16,9 +30,6 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 )
-
-// Erasmo Cardoso da Silva
-// Desenvolvedor Full Stack
 
 // Definir lista de colunas esperadas no arquivo XLS de billing
 var ExpectedBillingHeader = []string{

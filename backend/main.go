@@ -2,26 +2,42 @@ package main
 
 import (
 	"log"
-	"backend/internal/db"
-	"backend/internal/handlers" 
+	"os"
 
-	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
+
+	"backend/internal/auth"
+	"backend/internal/db"
+	"backend/internal/routes"
 )
 
 // Erasmo Cardoso da Silva
 // Desenvolvedor Full Stack
 
 func main() {
-	// Conectar e migrar banco de dados
-	database := db.ConnectAndMigrate()
+	// Carregar variáveis de ambiente
+	if err := godotenv.Load(); err != nil {
+		log.Println("Warning: .env file not found")
+	}
 
-	// Criar instância do Gin
-	r := gin.Default()
+	// Inicializar conexão com o banco de dados
+	db, err := db.NewPostgresDB()
+	if err != nil {
+		log.Fatalf("Failed to connect to database: %v", err)
+	}
 
-	// Registrar handler de importação
-	r.POST("/importar-xls", handlers.ImportXLSHandler(database))
+	// Inicializar serviços
+	jwtService := auth.NewJWTService(os.Getenv("JWT_SECRET"))
+
+	// Configurar rotas
+	router := routes.SetupRouter(db, jwtService)
 
 	// Iniciar servidor
-	log.Println("Servidor rodando na porta 8080...")
-	r.Run(":8080")
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+	if err := router.Run(":" + port); err != nil {
+		log.Fatalf("Failed to start server: %v", err)
+	}
 }

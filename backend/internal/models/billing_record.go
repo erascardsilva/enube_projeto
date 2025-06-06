@@ -12,26 +12,26 @@ type BillingRecord struct {
 	gorm.Model // Adicionar campos padrão do GORM
 
 	// Definir chaves estrangeiras e relacionamentos (alguns podem ser nulos)
-	PartnerID      *string `gorm:"type:uuid"`
+	PartnerID      *string `gorm:"type:varchar(255)"`
 	Partner        Partner
-	CustomerID     *string `gorm:"type:uuid"`
+	CustomerID     *string `gorm:"type:varchar(255)"`
 	Customer       Customer
-	ProductID      *string `gorm:"type:uuid"`
+	ProductID      *string `gorm:"type:varchar(255)"`
 	Product        Product
-	SkuID          *string `gorm:"type:uuid"`
+	SkuID          *string `gorm:"type:varchar(255)"`
 	Sku            Sku
-	PublisherID    *string `gorm:"type:uuid"`
+	PublisherID    *string `gorm:"type:varchar(255)"`
 	Publisher      Publisher
-	SubscriptionID *string `gorm:"type:uuid"`
+	SubscriptionID *string `gorm:"type:varchar(255)"`
 	Subscription   Subscription
-	MeterID        *string `gorm:"type:uuid"`
+	MeterID        *string `gorm:"type:varchar(255)"`
 	Meter          Meter
 
 	// Definir campos específicos do registro de Billing (alguns IDs são opcionais)
-	MpnId                         *string   `gorm:"type:uuid"`
-	Tier2MpnId                    *string   `gorm:"type:uuid"`
+	MpnId                         *string   `gorm:"type:varchar(255)"`
+	Tier2MpnId                    *string   `gorm:"type:varchar(255)"`
 	InvoiceNumber                 string    `gorm:"not null"`
-	AvailabilityId                *string   `gorm:"type:uuid"`
+	AvailabilityId                *string   `gorm:"type:varchar(255)"`
 	ChargeStartDate               time.Time `gorm:"type:timestamp;not null"`
 	ChargeEndDate                 time.Time `gorm:"type:timestamp;not null"`
 	UsageDate                     time.Time `gorm:"type:timestamp;not null"`
@@ -55,14 +55,12 @@ type BillingRecord struct {
 	EffectiveUnitPrice            float64   `gorm:"type:decimal(20,6);not null"`
 	PCToBCExchangeRate            float64   `gorm:"type:decimal(20,6);not null"`
 	PCToBCExchangeRateDate        time.Time `gorm:"type:timestamp"`
-	EntitlementId                 *string   `gorm:"type:uuid"`
+	EntitlementId                 *string   `gorm:"type:varchar(255)"`
 	EntitlementDescription        string
 	PartnerEarnedCreditPercentage float64 `gorm:"type:decimal(5,2);not null"`
 	CreditPercentage              float64 `gorm:"type:decimal(5,2);not null"`
 	CreditType                    string
-	BenefitOrderId                *string `gorm:"type:uuid"`
-	BenefitId                     *string `gorm:"type:uuid"`
+	BenefitOrderId                *string `gorm:"type:varchar(255)"`
+	BenefitId                     *string `gorm:"type:varchar(255)"`
 	BenefitType                   string
 }
-
-
