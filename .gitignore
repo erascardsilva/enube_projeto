@@ -4,6 +4,9 @@
 # Arquivos de ambiente
 .env
 
+# Dados do banco (evita erro de permissão e sujeira)
+postgres/data/
+
 # Arquivos de build e binários
 /bin/
 /tmp/
@@ -31,4 +34,3 @@ build-errors.log
 # Arquivos de debug
 debug
 debug.test
-
