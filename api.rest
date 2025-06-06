@@ -1,6 +1,6 @@
 @baseUrl = http://localhost:8080
 
-### Registro de novo usuário (com senha criptografada) ok
+### Registro de novo usuário ok
 POST {{baseUrl}}/auth/register
 Content-Type: application/json
 
@@ -20,14 +20,12 @@ Content-Type: application/json
     "password": "master3727"
 }
 
-### Listar todos os usuários  ok
-GET {{baseUrl}}/api/users
+### Listar todos os usuários (com paginação) ok
+GET {{baseUrl}}/api/users?page=1&limit=10
 Authorization: Bearer {{login.response.body.token}}
 
-
-
-### Importar arquivo Excel ok  desempenho ruim quase 40 segundos se der tempo tentar otimizar  mais tarde
- POST {{baseUrl}}/api/import
+### Importar arquivo Excel ok
+POST {{baseUrl}}/api/import
 Authorization: Bearer {{login.response.body.token}}
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary
 
@@ -38,28 +36,35 @@ Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
 < ./base/Reconfile fornecedores.xlsx
 ------WebKitFormBoundary--
 
-### Listar todos os clientes ok
-GET {{baseUrl}}/api/clients
+### Listar todos os clientes (com paginação) ok
+GET {{baseUrl}}/api/clients?page=1&limit=10
 Authorization: Bearer {{login.response.body.token}}
 
-### Listar todas as categorias ok
-GET {{baseUrl}}/api/categories
+### Listar todas as categorias (com paginação) ok
+GET {{baseUrl}}/api/categories?page=1&limit=10
 Authorization: Bearer {{login.response.body.token}}
 
-### Listar todos os recursos ok
-GET {{baseUrl}}/api/resources
+### Listar todos os recursos (com paginação) ok
+GET {{baseUrl}}/api/resources?page=1&limit=10
 Authorization: Bearer {{login.response.body.token}}
 
-
-### Listar usuários com paginação ok
-GET {{baseUrl}}/api/users?page=1&limit=10
-Authorization: Bearer {{login.response.body.token}}
-
-### Listar todos os faturamentos ok
-GET {{baseUrl}}/api/billing
+### Listar todos os faturamentos (com paginação) ok
+GET {{baseUrl}}/api/billing?page=1&limit=10
 Authorization: Bearer {{login.response.body.token}}
 
 ### Resumo de faturamento por categoria ok
 GET {{baseUrl}}/api/billing/summary/categories
+Authorization: Bearer {{login.response.body.token}}
+
+### Resumo de faturamento por recursos ok
+GET {{baseUrl}}/api/billing/summary/resources
+Authorization: Bearer {{login.response.body.token}}
+
+### Resumo de faturamento por clientes ok
+GET {{baseUrl}}/api/billing/summary/clients
+Authorization: Bearer {{login.response.body.token}}
+
+### Resumo de faturamento por meses ok
+GET {{baseUrl}}/api/billing/summary/months
 Authorization: Bearer {{login.response.body.token}}
 

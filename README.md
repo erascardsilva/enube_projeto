@@ -1,82 +1,86 @@
-# Projeto Enube
+# Enube - Projeto de Teste
 
-## Estrutura do Projeto
+## Descrição
+Projeto de teste para enube (importação e análise de dados arquivo excel).
 
-```
-enube_projeto/
-├── backend/                 # API em Go
-│   ├── cmd/                # Aplicação
-│   │   ├── main.go        
-│   │   └── importer/      # Importador de dados
-│   ├── internal/          # Código interno da aplicação
-│   │   ├── auth/         # Autenticação e JWT
-│   │   ├── db/           # Config Banco
-│   │   ├── handlers/     # Handlers HTTP
-│   │   ├── importer/     # Lógica 
-│   │   ├── middleware/   # Middlewares
-│   │   ├── models/       # Modelos 
-│   │   └── routes/       # Rotas 
-│   ├── .env              # Variáveis
-│   ├── .air.toml         # Configuração do Air (reload)
-│   ├── Dockerfile        # Coontainer
-│   ├── go.mod            # Dependências
-│   └── init.sql          # Script 
-│
-├── frontend/              # Frontend em React (opcional)
-│   ├── src/              # Código fonte
-│   ├── public/           # Arquivos estáticos
-│   └── package.json      # Dependências
-│
-├── base/                  # Arquivos base para importação
-│   └── Reconfile fornecedores.xlsx
-│
-├── .env                   # Variáveis 
-├── .gitignore            
-├── docker-compose.yml    # Containers
-└── README.md            
-```
+## Tecnologias
+- Backend: Go (Gin ORM GORM)
+- Frontend: React (em desenvolvimento)
+- Banco de Dados: PostgreSQL
+- Docker
 
-## Configuração do Ambiente
+## Requisitos
+- Docker
+- Docker Compose
+
+## Instalação
 
 1. Clone o repositório:
 ```bash
-git clone git@github.com:erascardsilva/enube_projeto.git
+git clone https://github.com/erascardsilva/enube_projeto.git
 cd enube_projeto
 ```
 
-2. Configure as variáveis de ambiente:
-   - Copie `.env.example` para `.env` na raiz do projeto
-   - Copie `.env.example` para `backend/.env`
-   - Ajuste as variáveis conforme necessário
-
-3. Inicie os containers:
+2. Inicie os containers:
 ```bash
 docker-compose build
 docker-compose up -d
 ```
 
-4. Acesse a API:
-   - http://localhost:8080
+3. Acesse a API:
+```
+http://localhost:8080
+```
 
-## Endpoints da API
+## Rotas da API
 
 ### Autenticação
-- `POST /auth/register` - Registro de usuário
+- `POST /auth/register` - Registro de novo usuário
 - `POST /auth/login` - Login e obtenção do token JWT
 
 ### Usuários
-- `GET /api/users` - Listar usuários
-- `GET /api/users?page=1&limit=10` - Listar com paginação
+- `GET /api/users` - Listar todos os usuários (com paginação)
 
 ### Importação
 - `POST /api/import` - Importar arquivo Excel
 
-### Consultas
-- `GET /api/clients` - Listar clientes
-- `GET /api/categories` - Listar categorias
-- `GET /api/resources` - Listar recursos
-- `GET /api/billing` - Listar faturamentos
-- `GET /api/billing/summary/categories` - Resumo por categoria
+### Clientes
+- `GET /api/clients` - Listar todos os clientes (com paginação)
+
+### Categorias
+- `GET /api/categories` - Listar todas as categorias (com paginação)
+
+### Recursos
+- `GET /api/resources` - Listar todos os recursos (com paginação)
+
+### Faturamento
+- `GET /api/billing` - Listar todos os faturamentos (com paginação)
+- `GET /api/billing/summary/categories` - Resumo de faturamento por categoria
+- `GET /api/billing/summary/resources` - Resumo de faturamento por recursos
+- `GET /api/billing/summary/clients` - Resumo de faturamento por clientes
+- `GET /api/billing/summary/months` - Resumo de faturamento por meses
+
+## Estrutura do Projeto
+```
+.
+├── backend/
+│   ├── cmd/
+│   ├── internal/
+│   │   ├── auth/
+│   │   ├── handlers/
+│   │   ├── importer/
+│   │   ├── middleware/
+│   │   ├── models/
+│   │   ├── repository/
+│   │   ├── routes/
+│   │   └── service/
+│   ├── init.sql
+│   └── Dockerfile
+├── frontend/
+│   └── Dockerfile
+├── docker-compose.yml
+└── README.md
+```
 
 ## Desenvolvimento
 
@@ -84,25 +88,23 @@ docker-compose up -d
 ```bash
 cd backend
 go mod tidy
-go run cmd/main.go
+go run main.go
 ```
 
-### Frontend (opcional)
+### Frontend (em desenvolvimento)
 ```bash
 cd frontend
 npm install
 npm start
 ```
 
-## Notas de Implementação
+## Testes
+```bash
+cd backend
+go test ./...
+```
 
-- O importador de dados está otimizado para processar arquivos Excel grandes mesmo assim ainda demora
-- A API usa JWT para autenticação
-- O banco de dados é PostgreSQL
-- A aplicação usa Docker para containerização
-- Hot reload com Air para desenvolvimento
+## Licença
+MIT
 
-## Autor
-
-Erasmo Cardoso da Silva
-Desenvolvedor Full Stack 
+Erasmo Cardoso da Silva 

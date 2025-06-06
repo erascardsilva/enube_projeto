@@ -8,6 +8,7 @@ import (
 	"math"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
@@ -211,19 +212,90 @@ func GetAllBillingHandler(db *gorm.DB) gin.HandlerFunc {
 // GetBillingSummaryByCategoriesHandler retorna resumo de faturamento por categoria
 func GetBillingSummaryByCategoriesHandler(db *gorm.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		var summary []map[string]interface{}
+		var summaries []struct {
+			Category string  `json:"category"`
+			Total    float64 `json:"total"`
+			Count    int64   `json:"count"`
+		}
 
-		// Consulta otimizada com índices e ordenação
 		if err := db.Table("billing").
-			Select("categories.name as category_name, SUM(billing.amount) as total_amount, COUNT(*) as total_records").
+			Select("categories.name as category, SUM(billing.amount) as total, COUNT(*) as count").
 			Joins("LEFT JOIN categories ON billing.category_id = categories.id").
 			Group("categories.name").
-			Order("total_amount DESC").
-			Find(&summary).Error; err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "Erro ao buscar resumo"})
+			Order("total DESC").
+			Find(&summaries).Error; err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
 
-		c.JSON(http.StatusOK, gin.H{"data": summary})
+		c.JSON(http.StatusOK, summaries)
+	}
+}
+
+// GetBillingSummaryByResources retorna o resumo de faturamento agrupado por recursos
+func GetBillingSummaryByResources(db *gorm.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var summaries []struct {
+			ResourceName string  `json:"resource_name"`
+			Total        float64 `json:"total"`
+			Count        int64   `json:"count"`
+		}
+
+		if err := db.Table("billing").
+			Select("resources.name as resource_name, SUM(billing.amount) as total, COUNT(*) as count").
+			Joins("LEFT JOIN resources ON billing.resource_id = resources.id").
+			Group("resources.name").
+			Order("total DESC").
+			Find(&summaries).Error; err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+
+		c.JSON(http.StatusOK, summaries)
+	}
+}
+
+// GetBillingSummaryByClients retorna o resumo de faturamento agrupado por clientes
+func GetBillingSummaryByClients(db *gorm.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var summaries []struct {
+			ClientName string  `json:"client_name"`
+			Total      float64 `json:"total"`
+			Count      int64   `json:"count"`
+		}
+
+		if err := db.Table("billing").
+			Select("clients.name as client_name, SUM(billing.amount) as total, COUNT(*) as count").
+			Joins("LEFT JOIN clients ON billing.client_id = clients.id").
+			Group("clients.name").
+			Order("total DESC").
+			Find(&summaries).Error; err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+
+		c.JSON(http.StatusOK, summaries)
+	}
+}
+
+// GetBillingSummaryByMonths retorna o resumo de faturamento agrupado por meses
+func GetBillingSummaryByMonths(db *gorm.DB) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var summaries []struct {
+			Month time.Time `json:"month"`
+			Total float64   `json:"total"`
+			Count int64     `json:"count"`
+		}
+
+		if err := db.Table("billing").
+			Select("DATE_TRUNC('month', billing_date) as month, SUM(amount) as total, COUNT(*) as count").
+			Group("DATE_TRUNC('month', billing_date)").
+			Order("month DESC").
+			Find(&summaries).Error; err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+
+		c.JSON(http.StatusOK, summaries)
 	}
 }
