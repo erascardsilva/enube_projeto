@@ -71,7 +71,4 @@ type Meter struct {
 	MeterRegion      string
 }
 
-// Nota: Adicionar outras entidades posteriormente se necessário
 
-// BillingRecord representa um registro de billing com chaves estrangeiras para entidades normalizadas
-// (Definição movida para billing_record.go)

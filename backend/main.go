@@ -2,10 +2,8 @@ package main
 
 import (
 	"log"
-	// Remover net/http
-
 	"backend/internal/db"
-	"backend/internal/handlers" // Importar handlers
+	"backend/internal/handlers" 
 
 	"github.com/gin-gonic/gin"
 )

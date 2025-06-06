@@ -65,4 +65,4 @@ type BillingRecord struct {
 	BenefitType                   string
 }
 
-// Nota: Adicionar outras entidades posteriormente se necessário
+
