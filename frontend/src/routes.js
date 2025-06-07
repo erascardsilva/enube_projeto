@@ -1,4 +1,3 @@
-
 // Material Dashboard 2 React layouts
 import Dashboard from "layouts/dashboard";
 import Tables from "layouts/tables";
@@ -9,6 +8,9 @@ import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
 import ProtectedRoute from "components/ProtectedRoute";
+import UsersSearch from "layouts/Users/UsersSearch";
+import ImportarSearch from "layouts/importar/importarSearch";
+import ImportarAdd from "layouts/importar/importarAdd";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
@@ -86,6 +88,32 @@ const routes = [
   //     </ProtectedRoute>
   //   ),
   // },
+
+  {
+    type: "collapse",
+     name: "Usuarios",
+     key: "usuarios",
+     icon: <Icon fontSize="small">group</Icon>,
+     route: "/usuarios",
+     component: <UsersSearch />,
+   },
+     {
+     type: "collapse",
+     name: "Adicionar Importação",
+     key: "adicionar-importacao",
+     icon: <Icon fontSize="small">add</Icon>,
+     route: "/importar/add",
+     component: <ImportarAdd />,
+   },
+   {
+     type: "collapse",
+     name: "Buscar Importações",
+     key: "importacoes",
+     icon: <Icon fontSize="small">cloud_upload</Icon>,
+     route: "/importar",
+     component: <ImportarSearch />,
+   },
+ 
    {
      type: "collapse",
      name: "Sign In",
@@ -102,6 +130,7 @@ const routes = [
      route: "/authentication/sign-up",
      component: <SignUp />,
    },
+ 
 ];
 
 export default routes;

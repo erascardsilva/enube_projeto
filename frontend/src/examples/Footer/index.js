@@ -103,8 +103,6 @@ Footer.defaultProps = {
   links: [
     { href: "https://erasmocs.netlify.app//", name: "Erasmo Cardoso" },
     { href: "https://erasmocs.netlify.app", name: "About Us" },
-    { href: "https://erasmocs.netlify.app//blog", name: "Blog" },
-    { href: "https://erasmocs.netlify.app//license", name: "License" },
   ],
 };
 

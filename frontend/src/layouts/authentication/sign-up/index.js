@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 // @mui material components
 import Card from "@mui/material/Card";
-import Checkbox from "@mui/material/Checkbox";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
@@ -16,9 +15,8 @@ import MDButton from "components/MDButton";
 import CoverLayout from "layouts/authentication/components/CoverLayout";
 
 // Images
-import bgImage from "assets/images/bg-sign-up-cover.jpeg";
+import bgImage from "assets/images/banco.jpg";
 import userApi from "api/userApi";
-import authService from "services/authService";
 
 function Cover() {
   const [username, setUsername] = useState("");
@@ -29,11 +27,18 @@ function Cover() {
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    
+    // Validate password length
+    if (password.length < 8) {
+      setError("A senha deve ter no mínimo 8 caracteres");
+      return;
+    }
+
     try {
       await userApi.register(username, email, password);
       navigate("/authentication/sign-in");
     } catch (err) {
-      setError(err.message || "Ocorreu um erro durante o registro.");
+      setError(err.response?.data?.error || "Ocorreu um erro durante o registro.");
     }
   };
 
@@ -77,7 +82,7 @@ function Cover() {
             </MDBox>
             <MDBox mb={2}>
               <MDInput
-                type="text"
+                type="email"
                 label="Email"
                 variant="standard"
                 fullWidth
@@ -87,12 +92,13 @@ function Cover() {
             </MDBox>
             <MDBox mb={2}>
               <MDInput
-                type="text"
+                type="password"
                 label="Password"
                 variant="standard"
                 fullWidth
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                helperText="A senha deve ter no mínimo 8 caracteres"
               />
             </MDBox>
             <MDBox mt={4} mb={1}>

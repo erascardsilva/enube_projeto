@@ -29,7 +29,7 @@ export default function sidenavLogoLabel(theme, ownerState) {
     }),
 
     [breakpoints.up("xl")]: {
-      opacity: miniSidenav ? 0 : 1,
+      // Removed opacity rule related to miniSidenav
     },
   };
 }
