@@ -1,16 +1,14 @@
-# Etapa de build
-FROM node:18-alpine as builder
+FROM node:18-bookworm-slim
+
 WORKDIR /app
+
 COPY package*.json ./
-RUN npm install
+RUN npm install --legacy-peer-deps
+
 COPY . .
-RUN npm run build
 
-# Etapa final
-FROM nginx:alpine
-COPY --from=builder /app/build /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+EXPOSE 3000
 
-# Erasmo Cardoso da Silva
-# Desenvolvedor Full Stack 
+ENV NODE_ENV=development
+
+CMD ["npm", "start"]

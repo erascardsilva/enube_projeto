@@ -39,37 +39,44 @@ type AuthResponse struct {
 func (h *AuthHandler) Register(c *gin.Context) {
 	var req RegisterRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
+		c.Header("Access-Control-Allow-Origin", "http://localhost:3000") // Força CORS
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
 	if err := h.authService.Register(req.Username, req.Email, req.Password); err != nil {
+		c.Header("Access-Control-Allow-Origin", "http://localhost:3000") // Força CORS
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
+	c.Header("Access-Control-Allow-Origin", "http://localhost:3000") // Força CORS
 	c.JSON(http.StatusCreated, gin.H{"message": "user registered successfully"})
 }
 
 func (h *AuthHandler) Login(c *gin.Context) {
 	var req LoginRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
+		c.Header("Access-Control-Allow-Origin", "http://localhost:3000") // Força CORS
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
 	token, err := h.authService.Login(req.Username, req.Password)
 	if err != nil {
+		c.Header("Access-Control-Allow-Origin", "http://localhost:3000") // Força CORS
 		c.JSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
 		return
 	}
 
+	c.Header("Access-Control-Allow-Origin", "http://localhost:3000") // Força CORS
 	c.JSON(http.StatusOK, AuthResponse{Token: token})
 }
 
 // GetAllUsersHandler retorna todos os usuários do sistema
 func GetAllUsersHandler(db *gorm.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
+		c.Header("Access-Control-Allow-Origin", "http://localhost:3000") // Força CORS
 		page := c.DefaultQuery("page", "1")
 		limit := c.DefaultQuery("limit", "50")
 
@@ -88,6 +95,7 @@ func GetAllUsersHandler(db *gorm.DB) gin.HandlerFunc {
 
 		// Contar total de registros
 		if err := db.Table("users").Count(&total).Error; err != nil {
+			c.Header("Access-Control-Allow-Origin", "http://localhost:3000") // Força CORS
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Erro ao contar usuários"})
 			return
 		}
@@ -97,10 +105,12 @@ func GetAllUsersHandler(db *gorm.DB) gin.HandlerFunc {
 			Select("id, username, email, active, created_at, updated_at").
 			Scopes(Paginate(pageNum, limitNum)).
 			Find(&users).Error; err != nil {
+			c.Header("Access-Control-Allow-Origin", "http://localhost:3000") // Força CORS
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Erro ao buscar usuários"})
 			return
 		}
 
+		c.Header("Access-Control-Allow-Origin", "http://localhost:3000") // Força CORS
 		c.JSON(http.StatusOK, gin.H{
 			"data": users,
 			"pagination": gin.H{

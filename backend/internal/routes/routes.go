@@ -15,9 +15,7 @@ import (
 )
 
 // SetupRouter configura todas as rotas da aplicação
-func SetupRouter(db *gorm.DB, jwtService *auth.JWTService) *gin.Engine {
-	router := gin.Default()
-
+func SetupRouter(router *gin.Engine, db *gorm.DB, jwtService *auth.JWTService) {
 	// Inicializar handlers
 	userRepo := repository.NewUserRepository(db)
 	authService := service.NewAuthService(userRepo, jwtService)
@@ -49,6 +47,4 @@ func SetupRouter(db *gorm.DB, jwtService *auth.JWTService) *gin.Engine {
 		api.GET("/billing/summary/clients", handlers.GetBillingSummaryByClients(db))
 		api.GET("/billing/summary/months", handlers.GetBillingSummaryByMonths(db))
 	}
-
-	return router
 }

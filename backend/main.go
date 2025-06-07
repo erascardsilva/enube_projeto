@@ -9,6 +9,9 @@ import (
 	"backend/internal/auth"
 	"backend/internal/db"
 	"backend/internal/routes"
+
+	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
 )
 
 // Erasmo Cardoso da Silva
@@ -29,8 +32,20 @@ func main() {
 	// Inicializar serviços
 	jwtService := auth.NewJWTService(os.Getenv("JWT_SECRET"))
 
+	router := gin.Default()
+
+	// Configuração do CORS
+	router.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"http://localhost:3000"}, // URL do seu frontend
+		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Accept", "Authorization"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+		MaxAge:           300,
+	}))
+
 	// Configurar rotas
-	router := routes.SetupRouter(db, jwtService)
+	routes.SetupRouter(router, db, jwtService)
 
 	// Iniciar servidor
 	port := os.Getenv("PORT")
