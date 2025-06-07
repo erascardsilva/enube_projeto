@@ -133,10 +133,10 @@ npm start
 ![Dashboard](base/dashboard.png)
 
 ### Importação
-![Importação](base/importar.png)
+![Importação](base/importacao.png)
 
 ### Busca
-![Busca](base/buscar.png)
+![Busca](base/buscascategorias.png)
 
 ## Uso
 
