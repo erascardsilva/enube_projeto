@@ -7,7 +7,7 @@ Projeto de teste para enube (importação e análise de dados arquivo excel). Um
 
 ### Backend
 - Go 1.23.0
-  - Gin Framework (REST API)
+  - Gin Framework 
   - GORM (ORM)
   - CORS (Cross-Origin Resource Sharing)
   - JWT (Autenticação)
