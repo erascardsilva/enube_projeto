@@ -68,6 +68,7 @@ Projeto de teste para enube (importação e análise de dados arquivo excel). Um
 ```bash
 git clone https://github.com/erascardsilva/enube_projeto.git
 cd enube_projeto
+na raiz e na pasta backend renomear arquivos .env.example para .env
 ```
 
 2. Inicie os containers:
